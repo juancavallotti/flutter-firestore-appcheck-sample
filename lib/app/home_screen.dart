@@ -67,6 +67,8 @@ class HomeScreen extends StatelessWidget {
                 case SubmittedReminderState:
                   remindersCubit.createReminder(
                       (addCubit.state as SubmittedReminderState).toReminder());
+                  addCubit.resetState();
+                  break;
               }
             });
           },
