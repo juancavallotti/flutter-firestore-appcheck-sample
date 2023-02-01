@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 extension QuickRow on List<Widget> {
-  Widget column() {
+  Widget row() {
     return Row(
       children: this,
     );
