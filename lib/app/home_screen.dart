@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:reminders_app/app/add_reminder.dart';
+import 'package:reminders_app/app/add_reminder_state.dart';
 import 'package:reminders_app/app/home_state.dart';
 
 import '../utils/utils.dart';
@@ -41,7 +42,11 @@ class HomeScreen extends StatelessWidget {
           onPressed: () {
             showModalBottomSheet(
               context: context,
-              builder: (context) => const AddReminder(),
+              builder: (_) => BlocProvider.value(
+                  value: BlocProvider.of<AddReminderCubit>(
+                    context,
+                  ),
+                  child: const AddReminder()),
             );
           },
         ),
