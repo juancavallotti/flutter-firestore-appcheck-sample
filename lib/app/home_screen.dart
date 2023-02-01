@@ -8,6 +8,7 @@ import 'package:reminders_app/app/config.dart';
 import 'package:reminders_app/app/home_state.dart';
 import 'package:reminders_app/app/reminder.dart';
 import 'package:reminders_app/app/repository.dart';
+import 'package:reminders_app/app/view_reminder.dart';
 
 import '../utils/utils.dart';
 
@@ -114,6 +115,10 @@ class RemindersView extends StatelessWidget {
                       },
                     )
                   : null,
+              onTap: () => showModalBottomSheet(
+                context: context,
+                builder: (context) => ViewReminder(reminder: reminder),
+              ),
             ),
           )
           .cast<Widget>()
