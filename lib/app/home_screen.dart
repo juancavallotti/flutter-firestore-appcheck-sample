@@ -8,6 +8,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(centerTitle: true, title: const Text("Simple Reminders")),
       body: const Text("Hello World of Widgets").center(),
     );
   }
