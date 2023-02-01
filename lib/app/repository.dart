@@ -10,6 +10,7 @@ class RemindersRepository {
   Future<List<Reminder>> readUserReminders(String userId) async {
     return reminders
         .where('userId', isEqualTo: userId)
+        .orderBy('when')
         .get()
         .then<List<Reminder>>((value) {
       return value.docs
