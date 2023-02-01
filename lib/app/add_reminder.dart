@@ -19,13 +19,17 @@ class AddReminder extends StatelessWidget {
           Text(
             "Add a Reminder",
             style: Theme.of(context).textTheme.titleLarge,
-          ).padding(top: 20),
-          const Text("Title").padding(top: formPadding),
+          ).padding(top: 20).center(),
+          Text(
+            "Title",
+            style: Theme.of(context).textTheme.labelLarge,
+          ).padding(top: formPadding),
           TextFormField(
             initialValue: state.title,
             onChanged: (value) => cubit.updateField(title: value),
           ).padding(left: formPadding, right: formPadding),
-          const Text("When?").padding(top: formPadding),
+          Text("When?", style: Theme.of(context).textTheme.labelLarge)
+              .padding(top: formPadding),
           TextButton(
             child: state.when == null
                 ? const Text("Select...")
@@ -40,7 +44,8 @@ class AddReminder extends StatelessWidget {
               .boxExpand()
               .sizedBox(height: 40)
               .padding(left: formPadding, right: formPadding, top: formPadding),
-          const Text("Description").padding(top: formPadding),
+          Text("Description", style: Theme.of(context).textTheme.labelLarge)
+              .padding(top: formPadding),
           TextFormField(
             initialValue: state.body,
             maxLines: 6,
@@ -60,7 +65,10 @@ class AddReminder extends StatelessWidget {
               .boxExpand()
               .sizedBox(height: 40)
               .padding(left: formPadding, right: formPadding, top: formPadding)
-        ].column().boxExpand(),
+        ]
+            .column(crossAxisAlignment: CrossAxisAlignment.start)
+            .padding(all: 12)
+            .boxExpand(),
       );
     });
   }
