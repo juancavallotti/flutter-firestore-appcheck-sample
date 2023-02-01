@@ -33,4 +33,13 @@ class RemindersAppStateCubit extends Cubit<RemindersAppState> {
         .readUserReminders("test@test.com")
         .then((value) => emit(RemindersAvailable(value)));
   }
+
+  Future<void> createReminder(Reminder reminder) async {
+    emit(LoadingReminders());
+    repository.createUserReminder("test@test.com", reminder).then((value) {
+      if (value != null) {
+        loadRemoteReminders();
+      }
+    });
+  }
 }

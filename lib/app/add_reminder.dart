@@ -47,7 +47,14 @@ class AddReminder extends StatelessWidget {
             onChanged: (value) => cubit.updateField(body: value),
           ).padding(left: formPadding, right: formPadding),
           TextButton(
-            onPressed: cubit.isValid() ? () {} : null,
+            onPressed: cubit.isValid()
+                ? () {
+                    cubit.create();
+                    if (Navigator.of(context).canPop()) {
+                      Navigator.of(context).pop();
+                    }
+                  }
+                : null,
             child: const Text("Create Reminder"),
           )
               .boxExpand()

@@ -17,4 +17,45 @@ class RemindersRepository {
       return [];
     });
   }
+
+  Future<Reminder?> createUserReminder(String userId, Reminder reminder) async {
+    final result = await reminders
+        .add(StoredReminder.from(reminder, userId: userId).toJson());
+    return StoredReminder.from(reminder, userId: userId, documentId: result.id);
+  }
+}
+
+class StoredReminder extends Reminder {
+  final String userId;
+  final String? documentId;
+  final bool active;
+
+  StoredReminder(
+      {required super.title,
+      required super.when,
+      super.body,
+      required this.userId,
+      required this.active,
+      this.documentId});
+
+  factory StoredReminder.from(Reminder base,
+      {required String userId, String? documentId}) {
+    return StoredReminder(
+        title: base.title,
+        when: base.when,
+        body: base.body,
+        userId: userId,
+        documentId: documentId,
+        active: true);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "userId": userId,
+      "active": active,
+      "title": title,
+      "when": when,
+      "body": body,
+    };
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reminders_app/app/reminder.dart';
 
 abstract class EditReminderState {
   final String? title;
@@ -14,6 +15,10 @@ class EditingReminderState extends EditReminderState {
 
 class SubmittedReminderState extends EditReminderState {
   SubmittedReminderState({super.title, super.when, super.body});
+
+  Reminder toReminder() {
+    return Reminder(title: title!, when: when!, body: body);
+  }
 }
 
 class CanceledReminderState extends EditReminderState {}
@@ -40,6 +45,12 @@ class AddReminderCubit extends Cubit<EditReminderState> {
     if (isValid()) {
       emit(SubmittedReminderState(
           title: state.title, when: state.when, body: state.body));
+    } else {
+      emit(CanceledReminderState());
     }
+  }
+
+  void resetState() {
+    emit(EditingReminderState());
   }
 }

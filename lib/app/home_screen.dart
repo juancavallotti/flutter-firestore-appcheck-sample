@@ -47,7 +47,22 @@ class HomeScreen extends StatelessWidget {
                     context,
                   ),
                   child: const AddReminder()),
-            );
+            ).then((value) {
+              //todo use the cubit to create a reminder.
+              final addCubit = context.read<AddReminderCubit>();
+              final remindersCubit = context.read<RemindersAppStateCubit>();
+
+              switch (addCubit.state.runtimeType) {
+                case EditingReminderState:
+                case CanceledReminderState:
+                  //the dialog was dismissed.
+                  addCubit.resetState();
+                  break;
+                case SubmittedReminderState:
+                  remindersCubit.createReminder(
+                      (addCubit.state as SubmittedReminderState).toReminder());
+              }
+            });
           },
         ),
       ),
