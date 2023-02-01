@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:reminders_app/app/add_reminder.dart';
 import 'package:reminders_app/app/add_reminder_state.dart';
 import 'package:reminders_app/app/home_state.dart';
+import 'package:reminders_app/app/reminder.dart';
 
 import '../utils/utils.dart';
 
@@ -32,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                     ? const Text(
                             "There are no reminders configured, try adding some!")
                         .center()
-                    : ListView();
+                    : RemindersView(reminders: reminders);
             }
             return const Text("This Should never happen!").center();
           },
@@ -66,6 +68,34 @@ class HomeScreen extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+}
+
+class RemindersView extends StatelessWidget {
+  final List<Reminder> reminders;
+
+  const RemindersView({super.key, required this.reminders});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: reminders
+          .map((reminder) => ListTile(
+                leading: const Icon(Icons.alarm),
+                title: [
+                  Text(
+                    reminder.title,
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
+                  Text(
+                    "${DateFormat.yMd().format(reminder.when)} ${DateFormat.jm().format(reminder.when)}",
+                    style: Theme.of(context).textTheme.labelMedium,
+                  )
+                ].column(crossAxisAlignment: CrossAxisAlignment.start),
+              ))
+          .cast<Widget>()
+          .toList(),
     );
   }
 }
