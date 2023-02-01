@@ -42,4 +42,11 @@ class RemindersAppStateCubit extends Cubit<RemindersAppState> {
       }
     });
   }
+
+  Future<void> deleteReminder(String reminderId) async {
+    emit(LoadingReminders());
+    if (await repository.deleteReminder(reminderId)) {
+      loadRemoteReminders();
+    }
+  }
 }

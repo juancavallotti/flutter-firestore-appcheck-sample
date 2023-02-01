@@ -6,6 +6,7 @@ import 'package:reminders_app/app/add_reminder.dart';
 import 'package:reminders_app/app/add_reminder_state.dart';
 import 'package:reminders_app/app/home_state.dart';
 import 'package:reminders_app/app/reminder.dart';
+import 'package:reminders_app/app/repository.dart';
 
 import '../utils/utils.dart';
 
@@ -34,7 +35,10 @@ class HomeScreen extends StatelessWidget {
                     ? const Text(
                             "There are no reminders configured, try adding some!")
                         .center()
-                    : RemindersView(reminders: reminders);
+                    : RemindersView(
+                        reminders: reminders,
+                        cubit: context.read<RemindersAppStateCubit>(),
+                      );
             }
             return const Text("This Should never happen!").center();
           },
@@ -74,26 +78,38 @@ class HomeScreen extends StatelessWidget {
 
 class RemindersView extends StatelessWidget {
   final List<Reminder> reminders;
+  final RemindersAppStateCubit cubit;
 
-  const RemindersView({super.key, required this.reminders});
+  const RemindersView(
+      {super.key, required this.reminders, required this.cubit});
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: reminders
-          .map((reminder) => ListTile(
-                leading: const Icon(Icons.alarm),
-                title: [
-                  Text(
-                    reminder.title,
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ),
-                  Text(
-                    "${DateFormat.yMd().format(reminder.when)} ${DateFormat.jm().format(reminder.when)}",
-                    style: Theme.of(context).textTheme.labelMedium,
-                  )
-                ].column(crossAxisAlignment: CrossAxisAlignment.start),
-              ))
+          .map(
+            (reminder) => ListTile(
+              leading: const Icon(Icons.alarm),
+              title: [
+                Text(
+                  reminder.title,
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+                Text(
+                  "${DateFormat.yMd().format(reminder.when)} ${DateFormat.jm().format(reminder.when)}",
+                  style: Theme.of(context).textTheme.labelMedium,
+                )
+              ].column(crossAxisAlignment: CrossAxisAlignment.start),
+              trailing: IconButton(
+                icon: const Icon(Icons.delete_forever),
+                onPressed: () {
+                  final reminderId =
+                      (reminder as StoredReminder).documentId ?? "";
+                  cubit.deleteReminder(reminderId);
+                },
+              ),
+            ),
+          )
           .cast<Widget>()
           .toList(),
     );

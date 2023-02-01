@@ -28,6 +28,15 @@ class RemindersRepository {
         .add(StoredReminder.from(reminder, userId: userId).toJson());
     return StoredReminder.from(reminder, userId: userId, documentId: result.id);
   }
+
+  Future<bool> deleteReminder(String reminderId) async {
+    try {
+      await reminders.doc(reminderId).delete();
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 }
 
 class StoredReminder extends Reminder {
