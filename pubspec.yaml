@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
+  loader_overlay: ^2.1.0
 
 dev_dependencies:
   flutter_test:
