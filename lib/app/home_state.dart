@@ -23,4 +23,9 @@ And the cubit.
 
 class RemindersAppStateCubit extends Cubit<RemindersAppState> {
   RemindersAppStateCubit() : super(Uninitialized());
+
+  Future<void> loadRemoteReminders() async {
+    emit(LoadingReminders());
+    //TODO - load reminders from firebase.
+  }
 }
