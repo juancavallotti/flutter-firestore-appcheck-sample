@@ -12,9 +12,13 @@ class RemindersRepository {
         .where('userId', isEqualTo: userId)
         .get()
         .then<List<Reminder>>((value) {
-      print(value);
-
-      return [];
+      return value.docs
+          .map((doc) {
+            return StoredReminder.fromJson(doc.data() as Map<String, dynamic>,
+                documentId: doc.id);
+          })
+          .cast<Reminder>()
+          .toList();
     });
   }
 
@@ -47,6 +51,20 @@ class StoredReminder extends Reminder {
         userId: userId,
         documentId: documentId,
         active: true);
+  }
+
+  factory StoredReminder.fromJson(Map<String, dynamic> data,
+      {String? documentId}) {
+    return StoredReminder(
+        title: data['title'] ?? "",
+        when: data['when'] != null
+            ? DateTime.fromMillisecondsSinceEpoch(
+                (data['when'] as Timestamp).millisecondsSinceEpoch)
+            : DateTime.now(),
+        userId: data['userId'] ?? "",
+        body: data['body'],
+        documentId: documentId,
+        active: data['active'] ?? true);
   }
 
   Map<String, dynamic> toJson() {
