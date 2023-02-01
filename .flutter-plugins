@@ -5,3 +5,5 @@ firebase_app_check=/Users/juancavallotti/.pub-cache/hosted/pub.dev/firebase_app_
 firebase_app_check_web=/Users/juancavallotti/.pub-cache/hosted/pub.dev/firebase_app_check_web-0.0.7+11/
 firebase_core=/Users/juancavallotti/.pub-cache/hosted/pub.dev/firebase_core-2.4.1/
 firebase_core_web=/Users/juancavallotti/.pub-cache/hosted/pub.dev/firebase_core_web-2.1.0/
+firebase_remote_config=/Users/juancavallotti/.pub-cache/hosted/pub.dev/firebase_remote_config-3.0.9/
+firebase_remote_config_web=/Users/juancavallotti/.pub-cache/hosted/pub.dev/firebase_remote_config_web-1.1.18/

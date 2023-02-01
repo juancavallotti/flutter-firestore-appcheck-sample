@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:reminders_app/app/add_reminder_state.dart';
+import 'package:reminders_app/app/config.dart';
 import 'package:reminders_app/app/home_screen.dart';
 import 'package:reminders_app/app/home_state.dart';
 import 'package:reminders_app/app/repository.dart';
@@ -15,6 +16,7 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await FirebaseAppCheck.instance
       .activate(androidProvider: AndroidProvider.debug);
+  initializeRemoteConfig();
   runApp(const MainApp());
 }
 

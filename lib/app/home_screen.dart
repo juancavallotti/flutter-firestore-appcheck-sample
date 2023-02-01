@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:reminders_app/app/add_reminder.dart';
 import 'package:reminders_app/app/add_reminder_state.dart';
+import 'package:reminders_app/app/config.dart';
 import 'package:reminders_app/app/home_state.dart';
 import 'package:reminders_app/app/reminder.dart';
 import 'package:reminders_app/app/repository.dart';
@@ -102,14 +103,17 @@ class RemindersView extends StatelessWidget {
                   style: Theme.of(context).textTheme.labelMedium,
                 )
               ].column(crossAxisAlignment: CrossAxisAlignment.start),
-              trailing: IconButton(
-                icon: const Icon(Icons.delete_forever),
-                onPressed: () {
-                  final reminderId =
-                      (reminder as StoredReminder).documentId ?? "";
-                  cubit.deleteReminder(reminderId);
-                },
-              ),
+              trailing: (config.getBool(
+                      "allow_delete")) //FEATURE THAT CAN BE ENABLED BY REMOTE CONFIG
+                  ? IconButton(
+                      icon: const Icon(Icons.delete_forever),
+                      onPressed: () {
+                        final reminderId =
+                            (reminder as StoredReminder).documentId ?? "";
+                        cubit.deleteReminder(reminderId);
+                      },
+                    )
+                  : null,
             ),
           )
           .cast<Widget>()
