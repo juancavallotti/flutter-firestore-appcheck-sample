@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:reminders_app/app/home_screen.dart';
 import 'package:reminders_app/app/home_state.dart';
+import 'package:reminders_app/app/repository.dart';
 import 'package:reminders_app/firebase_options.dart';
 
 void main() async {
@@ -19,7 +21,9 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: BlocProvider(
-      create: (context) => RemindersAppStateCubit(),
+      create: (context) => RemindersAppStateCubit(
+          repository:
+              RemindersRepository(firestore: FirebaseFirestore.instance)),
       child: const HomeScreen(),
     ));
   }

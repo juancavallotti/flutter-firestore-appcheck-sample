@@ -3,6 +3,7 @@ Classes related to the home screens's state management.
 */
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reminders_app/app/repository.dart';
 import 'reminder.dart';
 
 abstract class RemindersAppState {}
@@ -22,10 +23,14 @@ And the cubit.
 */
 
 class RemindersAppStateCubit extends Cubit<RemindersAppState> {
-  RemindersAppStateCubit() : super(Uninitialized());
+  final RemindersRepository repository;
+
+  RemindersAppStateCubit({required this.repository}) : super(Uninitialized());
 
   Future<void> loadRemoteReminders() async {
     emit(LoadingReminders());
-    //TODO - load reminders from firebase.
+    repository
+        .readUserReminders("test@test.com")
+        .then((value) => emit(RemindersAvailable(value)));
   }
 }
