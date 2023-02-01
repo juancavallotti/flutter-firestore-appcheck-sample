@@ -11,4 +11,6 @@ Future<void> initializeRemoteConfig() async {
   await config.setDefaults(const {
     "allow_delete": false,
   });
+
+  await config.fetchAndActivate();
 }
