@@ -123,7 +123,24 @@ class RemindersView extends StatelessWidget {
                   : null,
               onTap: () => showModalBottomSheet(
                 context: context,
-                builder: (context) => ViewReminder(reminder: reminder),
+                builder: (context) => ViewReminder(
+                  reminder: reminder,
+                  onDeletePressed: (config.getBool("allow_delete"))
+                      ? () {
+                          confirmDeleteDialog(context).then((result) {
+                            if (!result) {
+                              return;
+                            }
+                            final reminderId =
+                                (reminder as StoredReminder).documentId ?? "";
+                            cubit.deleteReminder(reminderId);
+                            if (Navigator.of(context).canPop()) {
+                              Navigator.of(context).pop();
+                            }
+                          });
+                        }
+                      : null,
+                ),
               ),
             ),
           )

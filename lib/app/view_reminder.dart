@@ -5,8 +5,9 @@ import 'package:reminders_app/utils/utils.dart';
 
 class ViewReminder extends StatelessWidget {
   final Reminder reminder;
+  final void Function()? onDeletePressed;
 
-  const ViewReminder({super.key, required this.reminder});
+  const ViewReminder({super.key, required this.reminder, this.onDeletePressed});
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,9 @@ class ViewReminder extends StatelessWidget {
         ).padding(bottom: 12),
         Text(reminder.body ?? "<No description>")
       ].column(crossAxisAlignment: CrossAxisAlignment.start).padding(all: 20),
+      bottomNavigationBar: TextButton(
+          onPressed: onDeletePressed,
+          child: const Text("Delete Reminder").padding(all: 20)),
     );
   }
 }
