@@ -15,11 +15,11 @@ class AddReminder extends StatelessWidget {
         builder: (context, state) {
       final cubit = context.read<AddReminderCubit>();
       return Scaffold(
+        appBar: AppBar(
+          title: const Text("Add a Reminder"),
+          automaticallyImplyLeading: false,
+        ),
         body: <Widget>[
-          Text(
-            "Add a Reminder",
-            style: Theme.of(context).textTheme.titleLarge,
-          ).padding(top: 20).center(),
           Text(
             "Title",
             style: Theme.of(context).textTheme.labelLarge,
@@ -65,10 +65,7 @@ class AddReminder extends StatelessWidget {
               .boxExpand()
               .sizedBox(height: 40)
               .padding(left: formPadding, right: formPadding, top: formPadding)
-        ]
-            .column(crossAxisAlignment: CrossAxisAlignment.start)
-            .padding(all: 12)
-            .boxExpand(),
+        ].listView().scroll().padding(all: 12).boxExpand(),
       );
     });
   }
