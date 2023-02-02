@@ -51,21 +51,18 @@ class AddReminder extends StatelessWidget {
             maxLines: 6,
             onChanged: (value) => cubit.updateField(body: value),
           ).padding(left: formPadding, right: formPadding),
-          TextButton(
-            onPressed: cubit.isValid()
-                ? () {
-                    cubit.create();
-                    if (Navigator.of(context).canPop()) {
-                      Navigator.of(context).pop();
-                    }
+        ].listView().padding(all: 12).boxExpand(),
+        bottomNavigationBar: TextButton(
+          onPressed: cubit.isValid()
+              ? () {
+                  cubit.create();
+                  if (Navigator.of(context).canPop()) {
+                    Navigator.of(context).pop();
                   }
-                : null,
-            child: const Text("Create Reminder"),
-          )
-              .boxExpand()
-              .sizedBox(height: 40)
-              .padding(left: formPadding, right: formPadding, top: formPadding)
-        ].listView().scroll().padding(all: 12).boxExpand(),
+                }
+              : null,
+          child: const Text("Create Reminder"),
+        ).padding(all: 20),
       );
     });
   }
