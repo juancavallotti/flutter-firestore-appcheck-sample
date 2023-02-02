@@ -23,9 +23,12 @@ class ViewReminder extends StatelessWidget {
         ).padding(bottom: 12),
         Text(reminder.body ?? "<No description>")
       ].column(crossAxisAlignment: CrossAxisAlignment.start).padding(all: 20),
-      bottomNavigationBar: TextButton(
-              onPressed: onDeletePressed, child: const Text("Delete Reminder"))
-          .padding(all: 20),
+      bottomNavigationBar: (onDeletePressed != null)
+          ? TextButton(
+                  onPressed: onDeletePressed,
+                  child: const Text("Delete Reminder"))
+              .padding(all: 20)
+          : null,
     );
   }
 }
