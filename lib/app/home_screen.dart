@@ -5,6 +5,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:reminders_app/app/add_reminder.dart';
 import 'package:reminders_app/app/add_reminder_state.dart';
 import 'package:reminders_app/app/config.dart';
+import 'package:reminders_app/app/dialogs.dart';
 import 'package:reminders_app/app/home_state.dart';
 import 'package:reminders_app/app/reminder.dart';
 import 'package:reminders_app/app/repository.dart';
@@ -109,9 +110,14 @@ class RemindersView extends StatelessWidget {
                   ? IconButton(
                       icon: const Icon(Icons.delete_forever),
                       onPressed: () {
-                        final reminderId =
-                            (reminder as StoredReminder).documentId ?? "";
-                        cubit.deleteReminder(reminderId);
+                        confirmDeleteDialog(context).then((result) {
+                          if (!result) {
+                            return;
+                          }
+                          final reminderId =
+                              (reminder as StoredReminder).documentId ?? "";
+                          cubit.deleteReminder(reminderId);
+                        });
                       },
                     )
                   : null,
