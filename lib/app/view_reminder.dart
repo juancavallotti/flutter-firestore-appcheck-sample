@@ -12,11 +12,11 @@ class ViewReminder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(reminder.title),
+        automaticallyImplyLeading: false,
+      ),
       body: <Widget>[
-        Text(
-          reminder.title,
-          style: Theme.of(context).textTheme.titleLarge,
-        ).padding(bottom: 12),
         Text(
           "${DateFormat.yMd().format(reminder.when)} ${DateFormat.jm().format(reminder.when)}",
           style: Theme.of(context).textTheme.labelMedium,
